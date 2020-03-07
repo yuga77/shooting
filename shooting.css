@@ -1,0 +1,47 @@
+#back_image_1 {
+  position: absolute;
+  left: 250px; 
+  top: 120px; /*(x,y)*/
+  height: 480px;
+  width: 640px;
+}
+
+#plane_1 {
+  position: absolute; 
+  left: 200px; 
+  top: 130px; 
+  z-index: 1; 
+  visibility: hidden;
+  height: 32px;
+  width: 32px;
+}
+
+#rocket_1 {
+  position: absolute; 
+  left: 450px;
+  top: 550px;
+  z-index: 1;
+  height: 32px;
+  width: 32px;
+  transform: rotate( -45deg );
+}
+
+#missile_1{
+  position: absolute;
+  left: 200px;
+  top: 530px;
+  z-index: 1;
+  visibility: hidden;
+  height: 30px;
+  width: 26px;
+}
+
+#fire_1 {
+  position: absolute;
+  left: 200px;
+  top: 550px;
+  z-index: 1;
+  visibility: hidden;
+  height: 32px;
+  width: 32px;
+}

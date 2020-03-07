@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shooting</title>
+  <script>
+
+    var missile_dx = 50;
+
+    var rocket_x = 450;
+
+    function on_start() {
+      document.onkeydown = get_key;
+      Move_Plane();
+    }
+
+      plane_x = 250;
+      dx = 10;
+      start_Flag = true;
+
+      function get_key(ev) {
+        if(ev) {
+          var get_key_code = ev.keyCode;
+        }else{
+          var get_key_code =event.keyCode;
+        }
+
+        if (get_key_code == 37) {
+          if ( rocket_x <= 248 ) {
+            rocket_x = 248;
+          }else{
+            rocket_x -= 10;
+          }
+        }
+
+        if(get_key_code == 39) {
+          if (rocket_x >= 858) {
+            rocket_x = 858;
+          } else {
+            rocket_x += 10;
+          }
+        }
+
+        document.getElementById("rocket_1").style.left = rocket_x + "px";
+
+        if (get_key_code == 38){
+          On_Missile_Start();
+        }
+      }
+
+      function Move_Plane() {
+        if (document.onkeydown ) {
+          document.images["plane_1"].style.visibility= "visible";
+        }
+
+        plane_x += dx;
+
+        if (plane_x > 858) {
+          document.images["plane_1"].style.visibility="hidden";
+
+          plane_x = 250;
+            document.images["plane_1"].style.visibility="visible";
+        }
+
+        document.getElementById("plane_1").style.left = plane_x + "px";
+
+        timer_1 = setTimeout("Move_Plane()", 150);
+      }
+
+      missile_y = 520;
+      missile_OK_Flag = false;
+
+      function On_Missile_Start() {
+        Set_Misille_Flag();
+      }
+
+      function Set_Misille_Flag() {
+        if (missile_OK_Flag == true) {return;}
+
+        missile_OK_Flag = true;
+        missile_x = rocket_x + 3
+        Move_Missile();
+      }
+
+      function Move_Missile() {
+        if (missile_OK_Flag == false ) {return;}
+        missile_y -= missile_dx
+
+        document.getElementById("missile_1").style.top = missile_y + "px";
+        document.getElementById("missile_1").style.left = missile_x + "px";
+        document.images["missile_1"].style.visibility = "visible";
+        
+
+        if (missile_y < 120) {
+          missile_y = 530;
+          missile_OK_Flag = false;
+          document.images["missile_1"].style.visibility = "hidden";
+          return;
+        }
+
+        Hit_Missile_Check();
+          timer_2 = setTimeout("Move_Missile()", 150);
+      }
+
+      function Hit_Missile_Check() {
+        if (plane_x - 5 <= missile_x && missile_x <= plane_x + 37 && missile_x <= plane_x + 37 && 130 -32 <= missile_y && missile_y <= 130) {
+          fire_x = plane_x
+          fire_y = missile_y
+
+          Call_Fire();
+        }
+      }
+
+      function Call_Fire() {
+        document.getElementById("fire_1").style.top = fire_y + "px";
+        document.getElementById("fire_1").style.left = fire_x + "px";
+        document.images["fire_1"].style.visibility = "visible";
+
+        setTimeout(function() {
+          document.getElementById("fire_1").style.visibility = "hidden";
+          document.getElementById("missile_1").style.visibility = "hidden";
+          document.getElementById("plane_1").style.visibility = "hidden";
+          plane_x = 250;
+        }, 150);
+      }
+  </script>
+  <link rel="stylesheet" href="shooting.css">
+</head>
+<body style="background-color: black;", onload="on_start();" >
+  <img src="file:///Users/nishidayuga/Pictures/Cloud1.gif" id="back_image_1"/>
+  <img src="file:///Users/nishidayuga/Pictures/Plane1.gif" id="plane_1"/>
+  <img src="file:///Users/nishidayuga/Pictures/Rocket1.gif" id="rocket_1"/>
+  <img src="file:///Users/nishidayuga/Pictures/Missile_1.png" id="missile_1"/>
+  <img src="file:///Users/nishidayuga/Pictures/Fire2.gif" id="fire_1" name="fire_1"/>
+</body>
+</html>
